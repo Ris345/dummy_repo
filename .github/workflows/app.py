@@ -16,5 +16,9 @@ def signUp():
     # Here you would normally add logic to save the user to a database
     return jsonify({'message': f'User {username} signed up successfully!'}), 201
 
+@app.route('/testing', methods=['GET'])
+def testing():
+    return jsonify({'message': 'Testing endpoint reached!'}), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
