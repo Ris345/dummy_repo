@@ -20,5 +20,21 @@ def signUp():
 def testing():
     return jsonify({'message': 'Testing endpoint reached! OMG'}), 200
 
+@app.route('/hello', methods=['GET'])
+def hello():
+    return jsonify({'message': 'Hello from the new endpoint!'}), 200
+
+@app.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({'message': 'pong'})
+
+@app.route('/status', methods=['GET'])
+def status():
+    return jsonify({'status': 'ok', 'service': 'dummy'})
+
+@app.route('/user/<username>', methods=['GET'])
+def get_user(username):
+    return jsonify({'user': username, 'info': 'dummy user info'})
+
 if __name__ == '__main__':
     app.run(debug=True)
