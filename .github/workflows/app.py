@@ -18,7 +18,7 @@ def signUp():
 
 @app.route('/testing', methods=['GET'])
 def testing():
-    return jsonify({'message': 'Testing endpoint reached!'}), 200
+    return jsonify({'message': 'Testing endpoint reached! OMG'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
