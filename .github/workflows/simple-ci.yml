@@ -1,29 +1,15 @@
 name: CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
+    types: [opened, reopened, ready_for_review]
     branches: [ "main" ]
+  issue_comment:
+    types: [created]
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
   pr_agent_job:
-    # Remove this for testing
-    # if: ${{ github.event.sender.type != 'Bot' }}
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -32,6 +18,20 @@ jobs:
     steps:
       - name: Print event info (debugging)
         run: echo "Event sender type is ${{ github.event.sender.type }}"
+
+      - name: Dump full event json (debugging)
+        run: cat $GITHUB_EVENT_PATH
+
+      - name: Verify OPENAI_KEY presence
+        run: |
+          if [ -z "${OPENAI_KEY}" ]; then
+            echo "❌ OPENAI_KEY missing"
+            exit 1
+          else
+            echo "✅ OPENAI_KEY present"
+          fi
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
       - name: PR Agent action step
         id: pragent
