@@ -6,6 +6,8 @@ on:
   pull_request:
     types: [opened, reopened, ready_for_review]
     branches: [ "main" ]
+  issue_comment:
+    types: [created]
   workflow_dispatch:
 
 jobs:
@@ -23,8 +25,6 @@ jobs:
           echo test, and deploy your project.
 
   pr_agent_job:
-    # Remove this for testing
-    # if: ${{ github.event.sender.type != 'Bot' }}
     runs-on: ubuntu-latest
     permissions:
       issues: write
